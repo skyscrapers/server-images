@@ -1,0 +1,59 @@
+{
+    "variables": {
+        "aws_region": "eu-west-1",
+        "aws_instance_type": "t2.medium",
+        "root_volume_size": "128",
+        "root_volume_type": "gp2",
+        "teleport_version": "2.3.5",
+        "kubernetes_version": ""
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "region": "{{user `aws_region`}}",
+        "instance_type": "{{user `aws_instance_type`}}",
+        "ssh_username": "admin",
+        "ssh_pty": true,
+        "ami_name": "ebs-kubernetes-baseimage-{{isotime \"200601020304\"}}",
+        "ami_groups": "all",
+        "ami_block_device_mappings": [{
+            "device_name": "/dev/sda1",
+            "volume_size": "{{user `root_volume_size`}}",
+            "volume_type": "{{user `root_volume_type`}}",
+            "delete_on_termination": true
+        }],
+        "run_tags": {
+            "Project": "kubernetes-baseimage"
+        },
+        "tags": {
+            "Project": "kubernetes-baseimage"
+        },
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "name": "k8s-{{user `kubernetes_version`}}-debian-jessie-amd64-hvm-ebs-*"
+            },
+            "owners": ["383156758163"],
+            "most_recent": true
+        }
+    }],
+    "provisioners": [{
+        "type": "file",
+        "source": "files/teleport.yaml",
+        "destination": "/tmp/teleport.yaml"
+    }, {
+        "type": "file",
+        "source": "files/teleport.service",
+        "destination": "/tmp/teleport.service"
+    }, {
+        "type": "shell",
+        "script": "scripts/teleport.sh",
+        "environment_vars": [
+            "TELEPORT_VERSION={{user `teleport_version`}}"
+        ]
+    }],
+    "post-processors": [{
+        "type": "manifest",
+        "output": "packer_manifest.json",
+        "strip_path": true
+    }]
+}

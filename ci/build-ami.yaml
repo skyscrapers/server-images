@@ -1,0 +1,26 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: "skyscrapers/packer"
+    tag: "1.0.4"
+
+params:
+  KUBERNETES_VERSION:
+
+inputs:
+  - name: packer
+
+outputs:
+  - name: outputs
+
+run:
+  path: sh
+  args:
+  - -exc
+  - |
+    cd packer
+
+    KUBERNETES_VERSION=$KUBERNETES_VERSION make build
+    cp packer_manifest.json ../outputs/
