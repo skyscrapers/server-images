@@ -30,7 +30,7 @@
         "source_ami_filter": {
             "filters": {
                 "virtualization-type": "hvm",
-                "name": "k8s-{{user `kubernetes_version`}}-debian-jessie-amd64-hvm-ebs.*"
+                "name": "k8s-{{user `kubernetes_version`}}-debian-jessie-amd64-hvm-ebs-*"
             },
             "owners": ["383156758163"],
             "most_recent": true
@@ -39,11 +39,11 @@
     "provisioners": [{
         "type": "file",
         "source": "files/teleport.yaml",
-        "destination": "/etc/teleport.yaml"
+        "destination": "/tmp/teleport.yaml"
     }, {
         "type": "file",
         "source": "files/teleport.service",
-        "destination": "/lib/systemd/system/teleport.service"
+        "destination": "/tmp/teleport.service"
     }, {
         "type": "shell",
         "script": "scripts/teleport.sh",
