@@ -13,7 +13,7 @@
         "instance_type": "{{user `aws_instance_type`}}",
         "ssh_username": "admin",
         "ssh_pty": true,
-        "ami_name": "ebs-kubernetes-baseimage-{{isotime \"200601020304\"}}",
+        "ami_name": "ebs-kubernetes-baseimage-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
         "ami_groups": "all",
         "ami_block_device_mappings": [{
             "device_name": "/dev/sda1",
