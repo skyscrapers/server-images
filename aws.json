@@ -2,7 +2,7 @@
     "variables": {
         "aws_region": "eu-west-1",
         "aws_instance_type": "t2.medium",
-        "root_volume_size": "128",
+        "root_volume_size": "8",
         "root_volume_type": "gp2",
         "teleport_version": "2.3.5",
         "kubernetes_version": ""
