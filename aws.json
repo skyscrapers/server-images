@@ -37,14 +37,6 @@
         }
     }],
     "provisioners": [{
-        "type": "file",
-        "source": "files/teleport.yaml",
-        "destination": "/tmp/teleport.yaml"
-    }, {
-        "type": "file",
-        "source": "files/teleport.service",
-        "destination": "/tmp/teleport.service"
-    }, {
         "type": "shell",
         "script": "scripts/teleport.sh",
         "environment_vars": [
