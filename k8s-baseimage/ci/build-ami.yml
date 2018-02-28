@@ -23,4 +23,4 @@ run:
     cd packer/k8s-baseimage
 
     KUBERNETES_VERSION=$KUBERNETES_VERSION make build
-    cp packer_manifest.json ../outputs/
+    cp packer_manifest.json ../../outputs/
