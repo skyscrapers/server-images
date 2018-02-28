@@ -15,5 +15,5 @@ KUBERNETES_VERSION=1.8 make build
 AMI for Teleport servers. It basically contains the Teleport binaries and `certbot`. This image is built automatically in the [`server-images` pipeline on Concourse](https://ci.skyscrape.rs/teams/skyscrapers/pipelines/server-images), but if you need to build it manually, run `packer build` providing the correct variables, e.g.:
 
 ```bash
-packer build -var 'source_ami=ami-cc166eb5' -var 'teleport_version=v2.4.2' packer.json
+packer build -var 'source_ami=ami-cc166eb5' -var 'teleport_version=2.4.2' packer.json
 ```
