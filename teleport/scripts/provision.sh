@@ -2,6 +2,10 @@
 
 set -e
 
+# Apt upgrade
+sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -q -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
+
 # Install teleport
 cd /tmp
 curl -sL `echo $TELEPORT_DOWNLOAD_URL_FORMAT | sed -e "s/%version%/$TELEPORT_VERSION/g"` > teleport.tar.gz
@@ -14,5 +18,5 @@ sudo apt-get update
 sudo apt-get install -y certbot python-pip
 sudo pip install certbot-dns-route53
 
-# Apt upgrade
-sudo apt-get upgrade -y
+# Cleanup
+sudo apt-get -y autoremove
