@@ -1,0 +1,43 @@
+{
+  "variables": {
+    "aws_region": "eu-west-1",
+    "aws_instance_type": "t2.micro",
+    "source_ami": "",
+    "teleport_version": "",
+    "teleport_download_url_format": "https://github.com/gravitational/teleport/releases/download/v%version%/teleport-v%version%-linux-amd64-bin.tar.gz"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "{{user `aws_region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "{{user `aws_instance_type`}}",
+      "ssh_username": "ubuntu",
+      "ssh_pty": true,
+      "ami_name": "ebs-teleport-{{user `teleport_version`}}-{{isotime \"200601020304\"}}",
+      "run_tags": {
+        "project": "teleport",
+        "teleport_version": "{{user `teleport_version`}}"
+      },
+      "tags": {
+        "project": "teleport",
+        "teleport_version": "{{user `teleport_version`}}"
+      }
+    }
+  ],
+  "provisioners": [{
+    "type": "shell",
+    "script": "scripts/provision.sh",
+    "environment_vars": [
+      "TELEPORT_DOWNLOAD_URL_FORMAT={{user `teleport_download_url_format`}}",
+      "TELEPORT_VERSION={{user `teleport_version`}}"
+    ]
+  }],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "packer_manifest.json",
+      "strip_path": true
+    }
+  ]
+}
