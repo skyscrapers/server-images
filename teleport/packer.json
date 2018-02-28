@@ -15,6 +15,7 @@
       "ssh_username": "ubuntu",
       "ssh_pty": true,
       "ami_name": "ebs-teleport-{{user `teleport_version`}}-{{isotime \"200601020304\"}}",
+      "ami_groups": "all",
       "run_tags": {
         "project": "teleport",
         "teleport_version": "{{user `teleport_version`}}"
