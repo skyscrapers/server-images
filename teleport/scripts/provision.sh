@@ -19,9 +19,8 @@ sudo apt-get install -y certbot python-pip
 sudo pip install certbot-dns-route53
 
 # Download Cloudwatch logs agent and its dependencies. Setup is for the bootstrap phase
-cd /root
-curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
-curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz -O
+sudo curl -o /root/awslogs-agent-setup.py https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
+sudo curl -o /root/AgentDependencies.tar.gz https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/AgentDependencies.tar.gz
 
 # Cleanup
 sudo apt-get -y autoremove
