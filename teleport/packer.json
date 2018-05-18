@@ -4,7 +4,7 @@
     "aws_instance_type": "t2.micro",
     "source_ami": "",
     "teleport_version": "",
-    "teleport_download_url_format": "https://github.com/gravitational/teleport/releases/download/v%version%/teleport-v%version%-linux-amd64-bin.tar.gz"
+    "teleport_download_url_format": "https://get.gravitational.com/teleport-v%version%-linux-amd64-bin.tar.gz"
   },
   "builders": [
     {
