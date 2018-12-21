@@ -16,7 +16,9 @@
         "ssh_username"             : "admin",
         "ssh_pty"                  : true,
         "ami_name"                 : "ebs-kubernetes-baseimage-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
+        "ami_description"          : "Kubernetes {{user `kubernetes_version`}} base image, includes Teleport version {{user `teleport_version`}} and AWS inspector agent",
         "ami_groups"               : "all",
+        "snapshot_groups"          : "all",
         "ami_block_device_mappings": [{
             "device_name"          : "/dev/xvda",
             "volume_size"          : "{{user `root_volume_size`}}",
@@ -24,10 +26,14 @@
             "delete_on_termination": true
         }],
         "run_tags": {
-            "Project": "kubernetes-baseimage"
+            "project"         : "kubernetes-baseimage",
+            "k8s_version"     : "{{user `kubernetes_version`}}",
+            "teleport_version": "{{user `teleport_version`}}"
         },
         "tags": {
-            "Project": "kubernetes-baseimage"
+            "project"         : "kubernetes-baseimage",
+            "k8s_version"     : "{{user `kubernetes_version`}}",
+            "teleport_version": "{{user `teleport_version`}}"
         }
     }],
     "provisioners": [
