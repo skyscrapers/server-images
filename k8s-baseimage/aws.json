@@ -54,10 +54,12 @@
         },
         {
             "type"  : "shell",
-            "script": "scripts/runc.sh",
+            "script": "scripts/docker.sh",
             "environment_vars": [
-                "RUNC_RELEASE_URL={{user `runc_release_url`}}",
-                "RUNC_RELEASE_CHECKSUM={{user `runc_release_checksum`}}"
+                "DOCKET_RELEASE={{user `docker_release`}}",
+                "DOCKET_CHECKSUM={{user `docker_checksum`}}",
+                "RUNC_RELEASE={{user `runc_release`}}",
+                "RUNC_CHECKSUM={{user `runc_checksum`}}"
             ]
         }
     ],
