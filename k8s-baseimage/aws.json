@@ -56,8 +56,8 @@
             "type"  : "shell",
             "script": "scripts/docker.sh",
             "environment_vars": [
-                "DOCKET_RELEASE={{user `docker_release`}}",
-                "DOCKET_CHECKSUM={{user `docker_checksum`}}",
+                "DOCKER_RELEASE={{user `docker_release`}}",
+                "DOCKER_CHECKSUM={{user `docker_checksum`}}",
                 "RUNC_RELEASE={{user `runc_release`}}",
                 "RUNC_CHECKSUM={{user `runc_checksum`}}"
             ]
