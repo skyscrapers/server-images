@@ -61,6 +61,10 @@
                 "RUNC_RELEASE={{user `runc_release`}}",
                 "RUNC_CHECKSUM={{user `runc_checksum`}}"
             ]
+        },
+        {
+            "type"  : "shell",
+            "script": "scripts/kernel-modules.sh"
         }
     ],
     "post-processors": [{
