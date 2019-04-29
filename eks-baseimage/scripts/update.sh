@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-sudo yum update
+sudo yum -y update
