@@ -1,0 +1,71 @@
+{
+    "variables": {
+        "aws_region": "eu-west-1",
+        "aws_instance_type": "t3.medium",
+        "root_volume_size": "8",
+        "root_volume_type": "gp2",
+        "teleport_version": "3.1.8",
+        "source_ami": "",
+        "kubernetes_version": ""
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `aws_region`}}",
+            "instance_type": "{{user `aws_instance_type`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "ssh_username": "ec2-user",
+            "ssh_pty": true,
+            "ami_name": "eks-node-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
+            "ami_description": "EKS {{user `kubernetes_version`}} node image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
+            "ami_groups": "all",
+            "snapshot_groups": "all",
+            "ami_block_device_mappings": [
+                {
+                    "device_name": "/dev/nvme0n1",
+                    "volume_size": "{{user `root_volume_size`}}",
+                    "volume_type": "{{user `root_volume_type`}}",
+                    "delete_on_termination": true
+                }
+            ],
+            "run_tags": {
+                "project": "eks-node",
+                "k8s_version": "{{user `kubernetes_version`}}",
+                "teleport_version": "{{user `teleport_version`}}"
+            },
+            "tags": {
+                "project": "eks-node",
+                "k8s_version": "{{user `kubernetes_version`}}",
+                "teleport_version": "{{user `teleport_version`}}"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "scripts/update.sh"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/teleport.sh",
+            "environment_vars": [
+                "TELEPORT_VERSION={{user `teleport_version`}}"
+            ]
+        },
+        {
+            "type": "shell",
+            "script": "scripts/awsinspector.sh"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/kernel-modules.sh"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest",
+            "output": "packer_manifest.json",
+            "strip_path": true
+        }
+    ]
+}
