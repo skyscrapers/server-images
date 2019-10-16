@@ -1,45 +1,49 @@
 {
     "variables": {
-        "aws_region"         : "eu-west-1",
-        "aws_instance_type"  : "t2.medium",
-        "root_volume_size"   : "8",
-        "root_volume_type"   : "gp2",
-        "teleport_version"   : "4.1.1",
-        "source_ami"         : "",
-        "kubernetes_version" : "",
-        "docker_release"     : "17.03.2~ce-0~debian-stretch",
-        "docker_checksum"    : "6f19489aba744dc02ce5fd9a65c0a2e3049b9f7a61cf70747ce33752094b0961",
-        "runc_release"       : "CVE-2019-5736-build3/runc-v17.03.2-amd64",
-        "runc_checksum"      : "25d2965a74d33e7bc7e16f6b6fef6a8c93a115d0c1027bdb792b2a57c03f2a74"
+        "aws_region"        : "eu-west-1",
+        "aws_instance_type" : "t2.medium",
+        "root_volume_size"  : "8",
+        "root_volume_type"  : "gp2",
+        "teleport_version"  : "4.1.1",
+        "source_ami"        : "",
+        "kubernetes_version": "",
+        "docker_release"    : "17.03.2~ce-0~debian-stretch",
+        "docker_checksum"   : "6f19489aba744dc02ce5fd9a65c0a2e3049b9f7a61cf70747ce33752094b0961",
+        "runc_release"      : "CVE-2019-5736-build3/runc-v17.03.2-amd64",
+        "runc_checksum"     : "25d2965a74d33e7bc7e16f6b6fef6a8c93a115d0c1027bdb792b2a57c03f2a74"
     },
-    "builders": [{
-        "type"                     : "amazon-ebs",
-        "region"                   : "{{user `aws_region`}}",
-        "instance_type"            : "{{user `aws_instance_type`}}",
-        "source_ami"               : "{{user `source_ami`}}",
-        "ssh_username"             : "admin",
-        "ssh_pty"                  : true,
-        "ami_name"                 : "ebs-kubernetes-baseimage-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
-        "ami_description"          : "Kubernetes {{user `kubernetes_version`}} base image, includes Teleport version {{user `teleport_version`}} and AWS inspector agent",
-        "ami_groups"               : "all",
-        "snapshot_groups"          : "all",
-        "ami_block_device_mappings": [{
-            "device_name"          : "/dev/xvda",
-            "volume_size"          : "{{user `root_volume_size`}}",
-            "volume_type"          : "{{user `root_volume_type`}}",
-            "delete_on_termination": true
-        }],
-        "run_tags": {
-            "project"         : "kubernetes-baseimage",
-            "k8s_version"     : "{{user `kubernetes_version`}}",
-            "teleport_version": "{{user `teleport_version`}}"
-        },
-        "tags": {
-            "project"         : "kubernetes-baseimage",
-            "k8s_version"     : "{{user `kubernetes_version`}}",
-            "teleport_version": "{{user `teleport_version`}}"
+    "builders": [
+        {
+            "type"                     : "amazon-ebs",
+            "region"                   : "{{user `aws_region`}}",
+            "instance_type"            : "{{user `aws_instance_type`}}",
+            "source_ami"               : "{{user `source_ami`}}",
+            "ssh_username"             : "admin",
+            "ssh_pty"                  : true,
+            "ami_name"                 : "ebs-kubernetes-baseimage-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
+            "ami_description"          : "Kubernetes {{user `kubernetes_version`}} base image, includes Teleport version {{user `teleport_version`}} and AWS inspector agent",
+            "ami_groups"               : "all",
+            "snapshot_groups"          : "all",
+            "ami_block_device_mappings": [
+                {
+                    "device_name"          : "/dev/xvda",
+                    "volume_size"          : "{{user `root_volume_size`}}",
+                    "volume_type"          : "{{user `root_volume_type`}}",
+                    "delete_on_termination": true
+                }
+            ],
+            "run_tags": {
+                "project"         : "kubernetes-baseimage",
+                "k8s_version"     : "{{user `kubernetes_version`}}",
+                "teleport_version": "{{user `teleport_version`}}"
+            },
+            "tags": {
+                "project"         : "kubernetes-baseimage",
+                "k8s_version"     : "{{user `kubernetes_version`}}",
+                "teleport_version": "{{user `teleport_version`}}"
+            }
         }
-    }],
+    ],
     "provisioners": [
         {
             "type"            : "shell",
@@ -50,11 +54,15 @@
         },
         {
             "type"  : "shell",
-            "script": "scripts/awsinspector.sh"
+            "script": "scripts/update.sh"
         },
         {
             "type"  : "shell",
-            "script": "scripts/docker.sh",
+            "script": "scripts/awsinspector.sh"
+        },
+        {
+            "type"            : "shell",
+            "script"          : "scripts/docker.sh",
             "environment_vars": [
                 "DOCKER_RELEASE={{user `docker_release`}}",
                 "DOCKER_CHECKSUM={{user `docker_checksum`}}",
@@ -67,9 +75,11 @@
             "script": "scripts/kernel-modules.sh"
         }
     ],
-    "post-processors": [{
-        "type"      : "manifest",
-        "output"    : "packer_manifest.json",
-        "strip_path": true
-    }]
+    "post-processors": [
+        {
+            "type"      : "manifest",
+            "output"    : "packer_manifest.json",
+            "strip_path": true
+        }
+    ]
 }
