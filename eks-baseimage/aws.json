@@ -59,6 +59,10 @@
         {
             "type": "shell",
             "script": "scripts/kernel-modules.sh"
+        },
+        {
+            "type": "shell",
+            "script": "scripts/sysctl.sh"
         }
     ],
     "post-processors": [
