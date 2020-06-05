@@ -4,7 +4,7 @@
     "aws_instance_type": "t2.micro",
     "source_ami": "",
     "teleport_version": "",
-    "teleport_download_url_format": "https://get.gravitational.com/teleport-v%version%-linux-amd64-bin.tar.gz"
+    "teleport_download_url_format": "https://get.gravitational.com/teleport-%version%-1.x86_64.rpm"
   },
   "builders": [
     {
@@ -12,7 +12,7 @@
       "region": "{{user `aws_region`}}",
       "source_ami": "{{user `source_ami`}}",
       "instance_type": "{{user `aws_instance_type`}}",
-      "ssh_username": "ubuntu",
+      "ssh_username": "ec2-user",
       "ssh_pty": true,
       "ami_name": "ebs-teleport-{{user `teleport_version`}}-{{isotime \"200601020304\"}}",
       "ami_groups": "all",
@@ -26,14 +26,20 @@
       }
     }
   ],
-  "provisioners": [{
-    "type": "shell",
-    "script": "scripts/provision.sh",
-    "environment_vars": [
-      "TELEPORT_DOWNLOAD_URL_FORMAT={{user `teleport_download_url_format`}}",
-      "TELEPORT_VERSION={{user `teleport_version`}}"
-    ]
-  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/provision.sh",
+      "environment_vars": [
+        "TELEPORT_DOWNLOAD_URL_FORMAT={{user `teleport_download_url_format`}}",
+        "TELEPORT_VERSION={{user `teleport_version`}}"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "../common_scripts/al2_cleanup.sh"
+    }
+  ],
   "post-processors": [
     {
       "type": "manifest",

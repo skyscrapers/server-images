@@ -63,6 +63,10 @@
         {
             "type": "shell",
             "script": "scripts/sysctl.sh"
+        },
+        {
+            "type": "shell",
+            "script": "../common_scripts/al2_cleanup.sh"
         }
     ],
     "post-processors": [
