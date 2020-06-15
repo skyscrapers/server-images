@@ -4,7 +4,7 @@
         "aws_instance_type": "t3.medium",
         "root_volume_size": "8",
         "root_volume_type": "gp2",
-        "teleport_version": "4.1.1",
+        "teleport_version": "4.2.10",
         "source_ami": "",
         "kubernetes_version": ""
     },
