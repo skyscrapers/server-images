@@ -43,10 +43,6 @@
     "provisioners": [
         {
             "type": "shell",
-            "script": "scripts/update.sh"
-        },
-        {
-            "type": "shell",
             "script": "scripts/teleport.sh",
             "environment_vars": [
                 "TELEPORT_VERSION={{user `teleport_version`}}"
