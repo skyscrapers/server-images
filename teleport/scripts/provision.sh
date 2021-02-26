@@ -24,3 +24,6 @@ sudo pip install boto3
 
 # Download Cloudwatch logs agent and its dependencies. Setup is for the bootstrap phase
 sudo yum install -y awslogs
+
+# Add "customer" system user to allow unprivilaged access for ssh tunneling and similar purposes
+useradd customer
