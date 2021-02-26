@@ -26,4 +26,4 @@ sudo pip install boto3
 sudo yum install -y awslogs
 
 # Add "customer" system user to allow unprivilaged access for ssh tunneling and similar purposes
-useradd customer
+sudo useradd customer
