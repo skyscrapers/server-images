@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# install nvme-cli to be able to mount local storage
-yum install -y nvme-cli
+# install nvme-cli to be able to get nvme information
+sudo yum install -y nvme-cli
 
 # Increase inotify max_user_instances and max_user_watches
 # https://github.com/skyscrapers/engineering/issues/333
