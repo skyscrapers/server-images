@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# install nvme-cli to be able to mount local storage
+yum install -y nvme-cli
+
 # Increase inotify max_user_instances and max_user_watches
 # https://github.com/skyscrapers/engineering/issues/333
 cat <<EOF | sudo tee -a /etc/sysctl.d/99-fs-inotify.conf
