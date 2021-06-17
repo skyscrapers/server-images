@@ -2,6 +2,7 @@
     "variables": {
         "aws_region": "eu-west-1",
         "aws_instance_type": "t3.medium",
+        "aws_inspector_enabled": true,
         "root_volume_size": "8",
         "root_volume_type": "gp2",
         "teleport_version": "5.2.1",
@@ -50,7 +51,10 @@
         },
         {
             "type": "shell",
-            "script": "scripts/awsinspector.sh"
+            "script": "scripts/awsinspector.sh",
+            "environment_vars": [
+                "AWS_INSPECTOR_ENABLED={{user `aws_inspector_enabled`}}"
+            ]
         },
         {
             "type": "shell",
