@@ -6,8 +6,9 @@
         "root_volume_size": "8",
         "root_volume_type": "gp2",
         "teleport_version": "10.1.4",
+        "kubernetes_version": "1.22",
         "source_ami": "",
-        "kubernetes_version": ""
+        "concourse_version": ""
     },
     "builders": [
         {
@@ -17,8 +18,8 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
             "ssh_pty": true,
-            "ami_name": "eks-node-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
-            "ami_description": "EKS {{user `kubernetes_version`}} node image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
+            "ami_name": "concourse-worker-{{user `concourse_version`}}-{{isotime \"200601020304\"}}",
+            "ami_description": "Concourse {{user `concourse_version`}} worker image, including Teleport version {{user `teleport_version`}} and kubectl version {{user `kubernetes_version`}}",
             "ami_groups": "all",
             "snapshot_groups": "all",
             "ami_block_device_mappings": [
@@ -30,13 +31,15 @@
                 }
             ],
             "run_tags": {
-                "project": "eks-node",
+                "project": "concourse-worker",
                 "k8s_version": "{{user `kubernetes_version`}}",
+                "concourse_version": "{{user `concourse_version`}}",
                 "teleport_version": "{{user `teleport_version`}}"
             },
             "tags": {
-                "project": "eks-node",
+                "project": "concourse-worker",
                 "k8s_version": "{{user `kubernetes_version`}}",
+                "concourse_version": "{{user `concourse_version`}}",
                 "teleport_version": "{{user `teleport_version`}}"
             }
         }
@@ -51,18 +54,11 @@
         },
         {
             "type": "shell",
-            "script": "scripts/awsinspector.sh",
+            "script": "scripts/setup.sh",
             "environment_vars": [
-                "AWS_INSPECTOR_ENABLED={{user `aws_inspector_enabled`}}"
+                "K8S_VERSION={{user `kubernetes_version`}}",
+                "CONCOURSE_VERSION={{user `concourse_version`}}"
             ]
-        },
-        {
-            "type": "shell",
-            "script": "scripts/yum.sh"
-        },
-        {
-            "type": "shell",
-            "script": "scripts/kernel-modules.sh"
         },
         {
             "type": "shell",

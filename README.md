@@ -2,12 +2,20 @@
 
 Repo containing some server images used in our projects.
 
-## eks-baseimage
+## concourse-worker
 
-Base AMI used for all EKS cluster nodes. This image is built automatically in the [`server-images` pipeline on Concourse](https://ci.skyscrape.rs/teams/skyscrapers/pipelines/server-images), but if you need to build it manually, run `make build` to build it, providing the correct Kubernetes version, e.g.:
+Base AMI used for Concourse workers. This image is built automatically in the [`server-images` pipeline on Concourse](https://ci.skyscrape.rs/teams/skyscrapers/pipelines/server-images), but if you need to build it manually, run `packer build` to build it, providing the correct Concourse version, e.g.:
 
 ```bash
-packer build -var 'source_ami=ami-0f9e9442edcd2faa2' -var 'kubernetes_version=1.15' packer.json
+packer build -var 'source_ami=ami-0f9e9442edcd2faa2' -var 'concourse_version=7.7.1' aws.json
+```
+
+## eks-baseimage
+
+Base AMI used for all EKS cluster nodes. This image is built automatically in the [`server-images` pipeline on Concourse](https://ci.skyscrape.rs/teams/skyscrapers/pipelines/server-images), but if you need to build it manually, run `packer build` to build it, providing the correct Kubernetes version, e.g.:
+
+```bash
+packer build -var 'source_ami=ami-0f9e9442edcd2faa2' -var 'kubernetes_version=1.15' aws.json
 ```
 
 ## teleport
