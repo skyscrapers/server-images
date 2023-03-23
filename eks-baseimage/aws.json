@@ -13,6 +13,7 @@
         {
             "type": "amazon-ebs",
             "region": "{{user `aws_region`}}",
+            "skip_region_validation": true,
             "instance_type": "{{user `aws_instance_type`}}",
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
