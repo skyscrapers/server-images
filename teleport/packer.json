@@ -15,7 +15,7 @@
       "instance_type": "{{user `aws_instance_type`}}",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "ebs-teleport-{{user `teleport_version`}}-{{isotime \"200601020304\"}}",
+      "ami_name": "ebs-teleport-{{user `teleport_version`}}-{{isotime \"200601021504\"}}",
       "ami_groups": "all",
       "run_tags": {
         "project": "teleport",

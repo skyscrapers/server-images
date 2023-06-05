@@ -18,7 +18,7 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
             "ssh_pty": true,
-            "ami_name": "eks-node-{{user `kubernetes_version`}}-{{isotime \"200601020304\"}}",
+            "ami_name": "eks-node-{{user `kubernetes_version`}}-{{isotime \"200601021504\"}}",
             "ami_description": "EKS {{user `kubernetes_version`}} node image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
             "ami_groups": "all",
             "snapshot_groups": "all",
