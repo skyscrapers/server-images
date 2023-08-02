@@ -5,7 +5,7 @@
         "aws_inspector_enabled": "true",
         "root_volume_size": "8",
         "root_volume_type": "gp2",
-        "teleport_version": "13.0.3",
+        "teleport_version": "13.3.0",
         "source_ami": "",
         "kubernetes_version": ""
     },
