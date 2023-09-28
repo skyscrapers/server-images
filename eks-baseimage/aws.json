@@ -7,7 +7,8 @@
         "root_volume_type": "gp2",
         "teleport_version": "13.3.8",
         "source_ami": "",
-        "kubernetes_version": ""
+        "kubernetes_version": "",
+        "image_name": "node"
     },
     "builders": [
         {
@@ -18,8 +19,8 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
             "ssh_pty": true,
-            "ami_name": "eks-node-{{user `kubernetes_version`}}-{{isotime \"200601021504\"}}",
-            "ami_description": "EKS {{user `kubernetes_version`}} node image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
+            "ami_name": "eks-{{user `image_name`}}-{{user `kubernetes_version`}}-{{isotime \"200601021504\"}}",
+            "ami_description": "EKS {{user `kubernetes_version`}} {{user `image_name`}} image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
             "ami_groups": "all",
             "snapshot_groups": "all",
             "ami_block_device_mappings": [
@@ -31,12 +32,12 @@
                 }
             ],
             "run_tags": {
-                "project": "eks-node",
+                "project": "eks-{{user `image_name`}}",
                 "k8s_version": "{{user `kubernetes_version`}}",
                 "teleport_version": "{{user `teleport_version`}}"
             },
             "tags": {
-                "project": "eks-node",
+                "project": "eks-{{user `image_name`}}",
                 "k8s_version": "{{user `kubernetes_version`}}",
                 "teleport_version": "{{user `teleport_version`}}"
             }
