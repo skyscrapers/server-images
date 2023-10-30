@@ -21,7 +21,6 @@
             "ssh_pty": true,
             "ami_name": "eks-{{user `image_name`}}-{{user `kubernetes_version`}}-{{isotime \"200601021504\"}}",
             "ami_description": "EKS {{user `kubernetes_version`}} {{user `image_name`}} image, including Teleport version {{user `teleport_version`}} and AWS inspector agent",
-            "ami_groups": "all",
             "snapshot_groups": "all",
             "ami_block_device_mappings": [
                 {
