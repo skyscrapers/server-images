@@ -13,11 +13,11 @@ sudo tar -xzf ./concourse.tgz -C /usr/local
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION}/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION}/rpm/repodata/repomd.xml.key
 EOF
 
 sudo yum update -y
-sudo yum install -y awscli jq btrfs-progs kubectl-${K8S_VERSION}.*
+sudo yum install -y awscli jq btrfs-progs kubectl
