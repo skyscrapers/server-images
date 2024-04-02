@@ -22,7 +22,7 @@ EOF
 # Install packages
 sudo yum update -y
 sudo yum install -y unzip jq btrfs-progs kubectl
-sudo yum uninstall -y awcli
+sudo yum remove -y awscli
 
 # Install awscliv2
 curl -s -L -f -o ./awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
