@@ -21,7 +21,7 @@ EOF
 
 # Install packages
 sudo yum update -y
-sudo yum install -y unzip jq btrfs-progs kubectl
+sudo yum install -y unzip jq btrfs-progs kubectl amazon-cloudwatch-agent
 sudo yum remove -y awscli
 
 # Install awscliv2
