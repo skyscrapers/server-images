@@ -32,12 +32,12 @@
             "run_tags": {
                 "project": "concourse-worker",
                 "k8s_version": "{{user `kubernetes_version`}}",
-                "concourse_version": "{{user `concourse_version`}}",
+                "concourse_version": "{{user `concourse_version`}}"
             },
             "tags": {
                 "project": "concourse-worker",
                 "k8s_version": "{{user `kubernetes_version`}}",
-                "concourse_version": "{{user `concourse_version`}}",
+                "concourse_version": "{{user `concourse_version`}}"
             }
         }
     ],
