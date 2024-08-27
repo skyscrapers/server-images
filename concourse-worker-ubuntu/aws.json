@@ -15,7 +15,7 @@
             "region": "{{user `aws_region`}}",
             "instance_type": "{{user `aws_instance_type`}}",
             "source_ami": "{{user `source_ami`}}",
-            "ssh_username": "ec2-user",
+            "ssh_username": "ubuntu",
             "ssh_pty": true,
             "ami_name": "concourse-worker-{{user `concourse_version`}}-ubuntu-{{isotime \"200601021504\"}}",
             "ami_description": "Concourse {{user `concourse_version`}} worker image (Ubuntu-based), including kubectl version {{user `kubernetes_version`}}",
