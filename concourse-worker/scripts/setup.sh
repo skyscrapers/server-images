@@ -8,6 +8,7 @@ sudo sed -i 's/#compress/compress/g' /etc/logrotate.conf
 # Install concourse
 curl -s -L -f -o ./concourse.tgz https://github.com/concourse/concourse/releases/download/v${CONCOURSE_VERSION}/concourse-${CONCOURSE_VERSION}-linux-amd64.tgz
 sudo tar -xzf ./concourse.tgz -C /usr/local
+rm -f ./concourse.tgz
 
 # Setup kubectl repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -28,3 +29,4 @@ sudo yum remove -y awscli
 curl -s -L -f -o ./awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 unzip ./awscliv2.zip
 sudo ./aws/install
+rm -rf ./aws ./awscliv2.zip

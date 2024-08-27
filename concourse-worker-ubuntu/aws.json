@@ -17,8 +17,8 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
             "ssh_pty": true,
-            "ami_name": "concourse-worker-{{user `concourse_version`}}-{{isotime \"200601021504\"}}",
-            "ami_description": "Concourse {{user `concourse_version`}} worker image, including kubectl version {{user `kubernetes_version`}}",
+            "ami_name": "concourse-worker-{{user `concourse_version`}}-ubuntu-{{isotime \"200601021504\"}}",
+            "ami_description": "Concourse {{user `concourse_version`}} worker image (Ubuntu-based), including kubectl version {{user `kubernetes_version`}}",
             "ami_groups": "all",
             "snapshot_groups": "all",
             "ami_block_device_mappings": [
@@ -52,7 +52,7 @@
         },
         {
             "type": "shell",
-            "script": "../common_scripts/al2_cleanup.sh"
+            "script": "../common_scripts/ubuntu_cleanup.sh"
         }
     ],
     "post-processors": [
