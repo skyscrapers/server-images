@@ -16,7 +16,7 @@ kubectl version --client
 
 # Install packages
 sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl gnupg unzip jq btrfs-progs containerd
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg unzip jq btrfs-progs
 
 # Install awscliv2
 curl -sLfo ./awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
