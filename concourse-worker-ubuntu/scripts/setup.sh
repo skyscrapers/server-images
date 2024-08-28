@@ -5,18 +5,18 @@ set -e
 # Enable compression in logrotate
 sudo sed -i 's/#compress/compress/g' /etc/logrotate.conf
 
-# Install packages
-sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl gnupg unzip jq btrfs-progs containerd
-
 # Install kubectl
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
-sudo apt update
-sudo apt install -y kubectl
+sudo apt-get update
+sudo apt-get install -y kubectl
 kubectl version --client
+
+# Install packages
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg unzip jq btrfs-progs containerd
 
 # Install awscliv2
 curl -sLfo ./awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
