@@ -17,7 +17,6 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ec2-user",
             "ssh_pty": true,
-            "temporary_key_pair_type": "ed25519",
             "ami_name": "concourse-worker-{{user `concourse_version`}}-{{isotime \"200601021504\"}}",
             "ami_description": "Concourse {{user `concourse_version`}} worker image, including kubectl version {{user `kubernetes_version`}}",
             "ami_groups": "all",
