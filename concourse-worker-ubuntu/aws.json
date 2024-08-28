@@ -17,7 +17,7 @@
             "source_ami": "{{user `source_ami`}}",
             "ssh_username": "ubuntu",
             "ssh_pty": true,
-            "ami_name": "concourse-worker-{{user `concourse_version`}}-ubuntu-{{isotime \"200601021504\"}}",
+            "ami_name": "concourse-worker-ubuntu-{{user `concourse_version`}}-{{isotime \"200601021504\"}}",
             "ami_description": "Concourse {{user `concourse_version`}} worker image (Ubuntu-based), including kubectl version {{user `kubernetes_version`}}",
             "ami_groups": "all",
             "snapshot_groups": "all",
