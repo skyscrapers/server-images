@@ -44,6 +44,20 @@
     "provisioners": [
         {
             "type": "shell",
+            "script": "scripts/upgrade.sh"
+        },
+        {
+            "type": "shell",
+            "inline": ["sudo systemctl reboot"],
+            "expect_disconnect": true
+        },
+        {
+            "type": "shell",
+            "script": "scripts/check_kernel.sh",
+            "pause_before": "30s"
+        },
+        {
+            "type": "shell",
             "script": "scripts/setup.sh",
             "environment_vars": [
                 "K8S_VERSION={{user `kubernetes_version`}}",
